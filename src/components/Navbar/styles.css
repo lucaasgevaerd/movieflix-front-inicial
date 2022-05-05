@@ -1,0 +1,18 @@
+.navbar-container {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    background-color: #FFC700;
+    height: 68px;
+    width: 100%;
+    padding: 18px;
+}
+
+.navbar-container h1 {
+    font-size: 24px;
+    color: #000000;
+}
+
+.navbar-brand-link {
+    text-decoration: none;
+}
