@@ -1,11 +1,13 @@
 .navbar-container {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     position: fixed;
     background-color: #FFC700;
     height: 68px;
     width: 100%;
     padding: 18px;
+    z-index: 1;
 }
 
 .navbar-container h1 {
@@ -13,6 +15,24 @@
     color: #000000;
 }
 
-.navbar-brand-link {
+.navbar-brand {
+    cursor: default;
     text-decoration: none;
+}
+
+.navbar-container a {
+    text-decoration: none;
+}
+
+.logout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    border: 1px solid #000;
+    color: #000;
 }

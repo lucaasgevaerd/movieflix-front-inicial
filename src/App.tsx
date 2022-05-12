@@ -1,11 +1,19 @@
-import AppRouter from './AppRouter';
+import AppRouter from "./AppRouter";
+import { useState } from "react";
+import { AuthContext, AuthContextData } from "./AuthContext";
 
-import './App.css';
+import "./App.css";
 
 function App() {
+  const [authContextData, setAuthContextData] = useState<AuthContextData>({
+    authenticated: false,
+  });
+
   return (
     <>
-      <AppRouter />
+      <AuthContext.Provider value={{ authContextData, setAuthContextData }}>
+        <AppRouter />
+      </AuthContext.Provider>
     </>
   );
 }

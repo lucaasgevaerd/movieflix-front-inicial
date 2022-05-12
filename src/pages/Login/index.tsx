@@ -3,7 +3,7 @@ import LoginCard from "../../components/LoginCard";
 
 import "./styles.css";
 
-const Home = () => {
+const Login = () => {
   return (
     <>
       <main className="main-container">
@@ -20,4 +20,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default Login;
