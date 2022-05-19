@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
 import {
   getTokenData,
@@ -38,12 +38,14 @@ const Navbar = () => {
   return (
     <header>
       <nav className="navbar-container">
+        <div className="navbar-content">
           <h1 className="navbar-brand">MovieFlix</h1>
         {authContextData.authenticated && (
           <a href="#logout" onClick={handleLogoutClick}>
             <div className="logout">SAIR</div>
           </a>
         )}
+        </div>
       </nav>
     </header>
   );

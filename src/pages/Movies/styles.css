@@ -24,6 +24,26 @@
     margin-bottom: 13px;
 }
 
+@media (min-width: 576px) {
+    .movie-links-main-container {
+        margin: 108px auto 0;
+        padding: 0 30px;
+    }
+
+    .movie-links-main-container h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+    }
+
+    .movie-links-main-container .movie-links a {
+        font-size: 22px;
+    }
+    
+    .movie-links-main-container .movie-links {
+        margin-bottom: 27px;
+    }
+}
+
 @media (min-width: 1200px) {
     .movie-links-main-container {
         margin: 108px auto 0;
@@ -32,7 +52,7 @@
 
     .movie-links-main-container h2 {
         font-size: 48px;
-        margin-bottom: 40px;
+        margin-bottom: 50px;
     }
 
     .movie-links-main-container .movie-links a {

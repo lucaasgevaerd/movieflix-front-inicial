@@ -1,8 +1,9 @@
 import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Navigate, NavigationType, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../AuthContext";
-import { getAuthData, getTokenData, requestBackEndLogin, saveAuthData } from "../../util/requests";
+import { getTokenData, requestBackEndLogin, saveAuthData } from "../../util/requests";
+import Loader from "../Loader";
 import "./styles.css";
 
 type FormData = {
@@ -13,7 +14,9 @@ type FormData = {
 const LoginCard = () => {
   const [hasError, setHasError] = useState(false);
 
-  const { authContextData, setAuthContextData } = useContext(AuthContext);
+  const { setAuthContextData } = useContext(AuthContext);
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -24,19 +27,19 @@ const LoginCard = () => {
   } = useForm<FormData>();
 
   const onSubmit = (formData: FormData) => {
+    setIsLoading(true)
     requestBackEndLogin(formData)
       .then((response) => {
         saveAuthData(response.data);
-        const token = getAuthData().access_token;
-        console.log(token);
         setHasError(false);
         setAuthContextData({authenticated: true, tokenData: getTokenData()});
-        console.log("SUCESSO", response);
+        setIsLoading(false);
         navigate("/movies", {replace: true});
       })
       .catch((error) => {
         setHasError(true);
-        console.log("ERRO", error);
+        console.log(error);
+        setIsLoading(false);
       });
   };
 
@@ -72,10 +75,11 @@ const LoginCard = () => {
             type="password"
             placeholder="Senha"
             name="password"
-            className={`${errors.password ? 'error-input-field second-edge' : 'input-field'}`}
+            className={`${errors.password ? 'error-input-field' : 'input-field'}`}
           />
           <div className="required-field">{errors.password?.message}</div>
-          <button type="submit">FAZER LOGIN</button>
+          {isLoading && <Loader />}
+          <button type="submit" className="button-submit">FAZER LOGIN</button>
         </form>
       </div>
     </section>

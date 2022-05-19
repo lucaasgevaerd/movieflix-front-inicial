@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios from "axios";
 import qs from "qs";
 import jwtDecode from "jwt-decode";
 
@@ -54,17 +54,6 @@ export const requestBackEndLogin = (loginData: LoginData) => {
   });
 };
 
-export const requestBackend = (config: AxiosRequestConfig) => {
-  const headers = config.withCredentials
-    ? {
-        ...config.headers,
-        Authorization: "Bearer " + getAuthData().access_token,
-      }
-    : config.headers;
-
-  return axios({ ...config, baseURL: BASE_URL, headers });
-};
-
 export const saveAuthData = (obj: LoginResponse) => {
   localStorage.setItem(tokenKey, JSON.stringify(obj));
 };
@@ -78,24 +67,6 @@ export const removeAuthData = () => {
   localStorage.removeItem(tokenKey);
 }
 
-axios.interceptors.request.use(
-  function (config) {
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
-
-axios.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
-
 export const getTokenData = (): TokenData | undefined => {
   try {
     return jwtDecode(getAuthData().access_token) as TokenData;
@@ -108,3 +79,17 @@ export const isAuthenticated = (): boolean => {
   const tokenData = getTokenData();
   return tokenData && tokenData.exp * 1000 > Date.now() ? true : false;
 };
+
+export const hasAnyRoles = (roles : Role[]) : boolean => {
+  if (roles.length === 0) {
+    return true;
+  }
+
+  const tokenData = getTokenData();
+
+  if (tokenData !== undefined) {
+    return roles.some(role => tokenData.authorities.includes(role));
+  }
+
+  return false;
+}
